@@ -1,0 +1,83 @@
+#!/bin/bash
+
+MODE="landscape"
+CAMERA="back"
+
+for ARG in "$@"; do
+    case "$ARG" in
+        portrait|p)
+            MODE="portrait"
+            ;;
+
+        landscape|l)
+            MODE="landscape"
+            ;;
+
+        portrait-reverse|pr)
+            MODE="portrait-reverse"
+            ;;
+
+        landscape-reverse|lr)
+            MODE="landscape-reverse"
+            ;;
+
+        front|f)
+            CAMERA="front"
+            ;;
+
+        back|b)
+            CAMERA="back"
+            ;;
+
+        *)
+            echo "Usage: webcam [orientation] [camera]"
+            echo
+            echo "Orientation:"
+            echo "  landscape, l              Landscape (default)"
+            echo "  portrait, p               Portrait"
+            echo "  landscape-reverse, lr     Upside-down landscape"
+            echo "  portrait-reverse, pr      Upside-down portrait"
+            echo
+            echo "Camera:"
+            echo "  back, b                   Back camera (default)"
+            echo "  front, f                  Front camera"
+            echo
+            echo "  webcam -> wide back"
+            echo "  webcam pr f -> selfie cam (portrait)"
+            exit 1
+            ;;
+    esac
+done
+
+case "$MODE" in
+    landscape)
+        ORIENTATION="@0"
+        ;;
+
+    portrait)
+        ORIENTATION="@90"
+        ;;
+
+    landscape-reverse)
+        ORIENTATION="@180"
+        ;;
+
+    portrait-reverse)
+        ORIENTATION="@270"
+        ;;
+esac
+
+echo "Starting Android webcam"
+echo "  Camera:     $CAMERA"
+echo "  Orientation: $MODE"
+
+scrcpy \
+    --video-source=camera \
+    --camera-facing="$CAMERA" \
+    --camera-size=1920x1080 \
+    --capture-orientation="$ORIENTATION" \
+    --v4l2-sink=/dev/video10 \
+    --no-audio \
+    --no-video-playback \
+    --no-window
+
