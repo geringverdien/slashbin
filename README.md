@@ -1,0 +1,2 @@
+# slashbin
+custom /bin/ backup
