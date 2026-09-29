@@ -1,0 +1,20 @@
+pkgname=uqr
+pkgver=1.0.0
+pkgrel=1
+pkgdesc='Terminal-friendly Unicode QR codes from text or files'
+arch=('any')
+depends=('nodejs' 'xsel')
+makedepends=('npm')
+
+_srcdir="$startdir"
+
+package() {
+  npm install \
+    --global \
+    --prefix "$pkgdir/usr" \
+    --omit=dev \
+    --ignore-scripts \
+    --no-audit \
+    --no-fund \
+    "$_srcdir"
+}

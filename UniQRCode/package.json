@@ -1,0 +1,19 @@
+{
+  "name": "unicode-qr",
+  "version": "1.0.0",
+  "description": "Generate terminal-friendly Unicode QR codes and copy them to the clipboard.",
+  "type": "module",
+  "bin": {
+    "uqr": "./bin/unicode-qr.js"
+  },
+  "scripts": {
+    "test": "node --test"
+  },
+  "dependencies": {
+    "clipboardy": "^4.0.0",
+    "qrcode-generator": "1.4.4"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
